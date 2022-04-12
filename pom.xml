@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.6.6</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.ennva</groupId>
 	<artifactId>spring-boot-zero-hero</artifactId>
@@ -14,6 +15,8 @@
 	<name>spring-boot-zero-hero</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
@@ -21,10 +24,86 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<!-- Thymeleaf is a Java XML/XHTML/HTML5 Template Engine Which is able 
+			to work both on Web (Servlet) and non Web environment -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
+		<!-- org.webjars.npm are WebJars are client-side web libraries (e.g. jQuery 
+			& Bootstrap) packaged into JAR (Java Archive) files -->
+		<dependency>
+			<groupId>org.webjars.npm</groupId>
+			<artifactId>bulma</artifactId>
+			<version>0.6.0</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.webjars.npm</groupId>
+			<artifactId>font-awesome</artifactId>
+			<version>4.7.0</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- Actuator is mainly used to expose operational information about the 
+			running application — health, metrics, info, dump, env, etc. It uses HTTP 
+			endpoints or JMX beans to enable us to interact with it. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+
+		<!-- Useful when you define a configuration classes like GithubProperties.java -->
+		<!-- It will look at that configuration class and generate metadata on 
+			it -->
+		<!-- https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#appendix.configuration-metadata.annotation-processor -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- to manage your database schema. Doing stuff like database migration -->
+		<!-- This expected a db/migration folder where to find your db migration 
+			scripts -->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
+
+		<!-- devtools bring a set of tools for you development lifecycle. (ex: 
+			h2-console) -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
 
 		<dependency>
