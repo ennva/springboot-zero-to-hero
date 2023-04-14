@@ -1,0 +1,14 @@
+import org.ennva.DemoApplication
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class DemoAppUnitTests {
+
+  @Test
+  public void testAppVersion() {
+    DemoApplication app = new DemoApplication();
+    String result = app.getVersion();
+    
+    assertEquals("0.0.1-SNAPSHOT", result);
+  }
+}
