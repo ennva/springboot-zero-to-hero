@@ -1,5 +1,5 @@
 def buildApp(){
-  echo "Building application"
+  echo "Building application version ${NEW_VERSION}"
 }
 
 def testApp(){
@@ -7,5 +7,5 @@ def testApp(){
 }
 
 def deployApp(){
-  echo "Deploying application"
+  echo "Deploying application version ${params.VERSION}"
 }
