@@ -14,12 +14,12 @@ pipeline {
   }
   
   stages {
-    when {
-      expression {
-        params.executeTests
+    stage("build") {
+      when {
+        expression {
+          params.executeTests
+        }
       }
-    }
-    stage("build") { 
       steps { 
          echo "building the app"
          echo "bilding version ${NEW_VERSION}"
