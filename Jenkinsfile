@@ -34,7 +34,7 @@ pipeline {
     
     stage("deploy") {
       steps {
-        echo "deploying the application with version ${VERSION}"
+        echo "deploying the application with version ${params.VERSION}"
         withCredentials([
           usernamePassword('server-credentials', usernameVariable: USER, passwordVariable: PWD)
         ]){
