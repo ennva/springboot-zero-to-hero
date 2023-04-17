@@ -3,7 +3,7 @@ def buildJar(){
   sh 'mvn package'
 }
 
-def buildJar(){
+def buildImage(){
   echo "Building Image version ${NEW_VERSION}"
   withCredentials([usernamePassword(credentialsId: 'nexus-docker-repo', passwordVariable: 'PASS', usernameVariable: 'USERNAME')]){
     sh('docker build -t localhost:8085/spring-boot-zero-hero:${VERSION} .')
