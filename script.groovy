@@ -1,5 +1,15 @@
-def buildApp(){
-  echo "Building application version ${NEW_VERSION}"
+def buildJar(){
+  echo "Building Jar version ${NEW_VERSION}"
+  sh 'mvn package'
+}
+
+def buildJar(){
+  echo "Building Image version ${NEW_VERSION}"
+  withCredentials([usernamePassword(credentialsId: 'nexus-docker-repo', passwordVariable: 'PASS', usernameVariable: 'USERNAME')]){
+    sh('docker build -t localhost:8085/spring-boot-zero-hero:${VERSION} .')
+    sh('echo $PASS | docker login -u $USERNAME --password-stdin localhost:8085')
+    sh('docker push localhost:8085/spring-boot-zero-hero:${VERSION}')
+  }
 }
 
 def testApp(){
