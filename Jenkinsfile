@@ -26,24 +26,30 @@ pipeline {
     
     stage("build") {
       steps { 
-         gv.buildApp()
+        script {
+           gv.buildApp()
+        }
       }
     }
     
     stage("test") {
-       when {
+      when {
         expression {
           params.executeTests
         }
       }
       steps {
-        gv.textApp()
+        script {
+          gv.textApp()
+        }
       }
     }
     
     stage("deploy") {
       steps {
-        gv.deployApp()
+        script {
+          gv.deployApp()
+        }
         withCredentials([
           usernamePassword(credentialsId: 'server-credentials', usernameVariable: 'USER', passwordVariable: 'PWD')
         ]){
