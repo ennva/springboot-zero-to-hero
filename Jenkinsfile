@@ -15,11 +15,6 @@ pipeline {
   
   stages {
     stage("build") {
-      when {
-        expression {
-          params.executeTests
-        }
-      }
       steps { 
          echo "building the app"
          echo "bilding version ${NEW_VERSION}"
@@ -27,6 +22,11 @@ pipeline {
     }
     
     stage("test") {
+       when {
+        expression {
+          params.executeTests
+        }
+      }
       steps {
         echo "testing the app"
       }
