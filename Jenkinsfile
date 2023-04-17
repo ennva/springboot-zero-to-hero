@@ -31,8 +31,7 @@ pipeline {
     stage("build jar") {
       steps { 
         script {
-           gv.buildApp()
-           sh 'mvn package'
+           gv.buildJar()
         }
       }
     }
@@ -40,12 +39,7 @@ pipeline {
     stage("build image") {
       steps { 
         script {
-           gv.buildApp()
-           withCredentials([usernamePassword(credentialsId: 'nexus-docker-repo', passwordVariable: 'PASS', usernameVariable: 'USERNAME')]){
-             sh 'docker build -t localhost:8085/spring-boot-zero-hero:${params.VERSION} .'
-             sh 'echo $PASS | docker login -u $USERNAME --password-stdin localhost:8085'
-             sh 'docker push localhost:8085/spring-boot-zero-hero:${params.VERSION}'
-           }
+           gv.buildImage()
         }
       }
     }
