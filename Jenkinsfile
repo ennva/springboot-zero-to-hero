@@ -47,13 +47,13 @@ pipeline {
   
   post {
     always {
-      // always executed
+      echo "All steps passed"
     }
     success {
-      // run if success
+      echo "This deployment ended successfully"
     }
     failure {
-      // run if failure
+      echo "An error occur during the deployment"
     }
   }
 }
