@@ -36,7 +36,7 @@ pipeline {
       steps {
         echo "deploying the application with version ${params.VERSION}"
         withCredentials([
-          usernamePassword(credentials: 'server-credentials', usernameVariable: 'USER', passwordVariable: 'PWD')
+          usernamePassword(credentialsId: 'server-credentials', usernameVariable: 'USER', passwordVariable: 'PWD')
         ]){
           sh "echo ${USER},${PWD}"
         }
