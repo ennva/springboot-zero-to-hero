@@ -40,7 +40,7 @@ pipeline {
       }
       steps {
         script {
-          gv.textApp()
+          gv.testApp()
         }
       }
     }
