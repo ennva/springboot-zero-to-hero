@@ -26,8 +26,7 @@ pipeline {
     
     stage("build") {
       steps { 
-         echo "building the app"
-         echo "bilding version ${NEW_VERSION}"
+         gv.buildApp()
       }
     }
     
@@ -38,13 +37,13 @@ pipeline {
         }
       }
       steps {
-        echo "testing the app"
+        gv.textApp()
       }
     }
     
     stage("deploy") {
       steps {
-        echo "deploying the application with version ${params.VERSION}"
+        gv.deployApp()
         withCredentials([
           usernamePassword(credentialsId: 'server-credentials', usernameVariable: 'USER', passwordVariable: 'PWD')
         ]){
