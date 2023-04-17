@@ -4,6 +4,10 @@ pipeline {
   
   agent any
   
+  tools {
+    maven 'maven-3.9'
+  }
+  
   parameters {
     //string(name: 'VERSION', defaultValue: '0.0.1', description: 'version to deploy on PROD')
     choice(name: 'VERSION', choices: ['0.0.1','0.0.2','0.0.3'], description: 'version to deploy on PROD')
@@ -24,10 +28,24 @@ pipeline {
       }
     }
     
-    stage("build") {
+    stage("build jar") {
       steps { 
         script {
            gv.buildApp()
+           sh 'mvn package'
+        }
+      }
+    }
+    
+    stage("build image") {
+      steps { 
+        script {
+           gv.buildApp()
+           withCredentials([usernamePassword(credentialsId: 'nexus-docker-repo', passwordVariable: 'PASS', usernameVariable: 'USERNAME')]){
+             sh 'docker build -t localhost:8085/spring-boot-zero-hero:${params.VERSION} .'
+             sh 'echo $PASS | docker login -u $USERNAME --password-stdin localhost:8085'
+             sh 'docker push localhost:8085/spring-boot-zero-hero:${params.VERSION}'
+           }
         }
       }
     }
