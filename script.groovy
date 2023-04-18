@@ -18,8 +18,6 @@ def testApp(){
 
 def deployApp(){
   echo "Deploying application version ${params.VERSION}"
-  echo "Deploying in ${ONE}"
-  echo "Deploying in ${TWO}"
 }
 
 return this
