@@ -11,6 +11,10 @@ pipeline {
   tools {
     maven 'maven-3.9'
   }
+
+  parameters {
+    booleanParam(name: 'executeTests', defaultValue: true, description: 'Determine if execute the test')
+  }
     
   stages {
     stage("init") {
