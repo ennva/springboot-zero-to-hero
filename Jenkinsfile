@@ -14,6 +14,7 @@ pipeline {
 
   parameters {
     booleanParam(name: 'executeTests', defaultValue: true, description: 'Determine if execute the test')
+    string(name: 'VERSION', defaultValue: '0.0.1', description: 'version to deploy')
   }
     
   stages {
