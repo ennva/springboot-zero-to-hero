@@ -1,7 +1,19 @@
 #!/usr/bin/env groovy
 
-//calling shared library in jenkins instead of local groovy file
-@Library('jenkins-shared-library')
+//project scope library: declared in jenkins. format library@version/tag
+library identifier: 'jenkins-shared-library@master', retriever: modernSCM(
+    [$class: 'GitSCMSource',
+     remote: 'https://github.com/ennva/jenkins-shared-library.git'
+     credentialsId: '12631522-0ca8-4486-9f59-0c60b3baecdd'
+    ]
+)
+
+//Grobal scope shared library in jenkins instead of local groovy file
+// create it in global system configuration of jenkins:  Global Pipeline Libraries
+// @Library('jenkins-shared-library@master')
+//@Library('jenkins-shared-library')
+
+
 def gv
 def host = 'localhost:8085'
 def imageName = 'spring-boot-zero-hero'
