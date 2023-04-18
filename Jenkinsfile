@@ -2,7 +2,7 @@
 
 //calling shared library in jenkins instead of local groovy file
 @Library('jenkins-shared-library')
-//def gv
+def gv
 
 pipeline {
   
@@ -53,7 +53,7 @@ pipeline {
         }
       }
     }
-    
+
     stage("deploy") {
       steps {
         script {
