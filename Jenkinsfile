@@ -29,6 +29,11 @@ pipeline {
     }
     
     stage("build jar") {
+      when {
+        expression {
+          BRANCH_NAME == 'master'
+        }
+      }
       steps { 
         script {
            gv.buildJar()
@@ -37,6 +42,11 @@ pipeline {
     }
     
     stage("build image") {
+      when {
+        expression {
+          BRANCH_NAME == 'master'
+        }
+      }
       steps { 
         script {
            gv.buildImage()
@@ -58,6 +68,11 @@ pipeline {
     }
     
     stage("deploy") {
+      when {
+        expression {
+          BRANCH_NAME == 'master'
+        }
+      }
       input {
         message "Select the environment to deploy to"
         ok "Done"
