@@ -2,8 +2,8 @@
 
 //project scope library: declared in jenkins. format library@version/tag
 library identifier: 'jenkins-shared-library@master', retriever: modernSCM(
-    [$class: 'GitSCMSource',
-     remote: 'https://github.com/ennva/jenkins-shared-library.git'
+    [ $class: 'GitSCMSource',
+     remote: 'https://github.com/ennva/jenkins-shared-library.git',
      credentialsId: '12631522-0ca8-4486-9f59-0c60b3baecdd'
     ]
 )
