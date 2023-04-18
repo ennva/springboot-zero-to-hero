@@ -34,6 +34,13 @@ pipeline {
     }
     
     stage("build image") {
+      input {
+        message "Select the environment to deploy to"
+        ok "Done"
+        parameters {
+          choice(name: 'VERSION', choices: ['0.0.1','0.0.2','0.0.3','0.0.4'], description: 'version to deploy')
+        }
+      }
       steps { 
         script {
            buildImage()
