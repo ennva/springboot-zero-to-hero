@@ -3,6 +3,8 @@
 //calling shared library in jenkins instead of local groovy file
 @Library('jenkins-shared-library')
 def gv
+def host = 'localhost:8085'
+def imageName = 'spring-boot-zero-hero'
 
 pipeline {
   
@@ -37,7 +39,9 @@ pipeline {
     stage("build image") {
       steps { 
         script {
-           buildImage('localhost:8085','spring-boot-zero-hero')
+           buildImage(host, imageName)
+           dockerLogin(host)
+           dockerPush(host, imageName)
         }
       }
     }
