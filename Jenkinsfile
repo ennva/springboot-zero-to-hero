@@ -44,7 +44,7 @@ pipeline {
       }
       steps { 
         script {
-           buildImage()
+           buildImage 'localhost:8085','spring-boot-zero-hero'
         }
       }
     }
