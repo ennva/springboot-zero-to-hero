@@ -1,94 +1,51 @@
-def gv
-
 pipeline {
-  
-  agent any
-  
-  tools {
-    maven 'maven-3.9'
-  }
-  
-  parameters {
-    string(name: 'VERSION', defaultValue: '0.0.9', description: 'version to deploy on PROD')
-    //choice(name: 'VERSION', choices: ['0.0.1','0.0.2','0.0.3'], description: 'version to deploy on PROD')
-    booleanParam(name: 'executeTests', defaultValue: true, description: '')
-  }
-  
-  environment {
-    NEW_VERSION = '0.0.1'
-    SERVER_CREDENTIALS = credentials('server-credentials')
-  }
-  
-  stages {
-    stage("init") {
-      steps {
-        script {
-          gv = load "script.groovy"
-        }
-      }
+    agent any
+
+    parameters {
+        booleanParam(name: 'executeTests', defaultValue: true, description: 'wether to execute tests')
     }
-    
-    stage("build jar") {
-      steps { 
-        script {
-           gv.buildJar()
+
+    stages {
+        stage("test"){
+            when {
+                expression {
+                    params.executeTests
+                }
+            }
+            steps {
+                script {
+                    echo "Testing application ..."
+                }
+            }
         }
-      }
-    }
-    
-    stage("build image") {
-      steps { 
-        script {
-           gv.buildImage()
+
+        stage("build Jar"){
+            steps {
+                script {
+                    echo "Building jar package.."
+                }
+            }
         }
-      }
-    }
-    
-    stage("test") {
-      when {
-        expression {
-          params.executeTests
+
+        stage("build Image"){
+            steps {
+                script {
+                    echo "Building docker image"
+                }
+            }
         }
-      }
-      steps {
-        script {
-          gv.testApp()
+
+        stage("deploy"){
+            steps {
+                script {
+                    echo "Deploying docker image to ec2.."
+                    def dockerCmd = 'docker run -d -p 8080:8080 djass/spring-boot-zero-hero:0.0.2'
+                    sshagent(['ec2-server-key-2']) {
+                        sh("ssh -o StrictHostKeyChecking=no ec2-user@3.75.225.173 ${dockerCmd}")
+                    }
+                }
+            }
         }
-      }
+
     }
-    
-    stage("deploy") {
-      input {
-        message "Select the environment to deploy to"
-        ok "Done"
-        parameters {
-          choice(name: 'ONE', choices: ['dev','staging','prod'], description: 'env to deploy to')
-          choice(name: 'TWO', choices: ['dev','staging','prod'], description: 'env to deploy to')
-        }
-      }
-      steps {
-        script {
-          gv.deployApp()
-        }
-        withCredentials([
-          usernamePassword(credentialsId: 'server-credentials', usernameVariable: 'USER', passwordVariable: 'PWD')
-        ]){
-          sh 'echo ${USER},${PWD}'
-        }
-      }
-    }
-    
-  }
-  
-  post {
-    always {
-      echo "All steps passed"
-    }
-    success {
-      echo "This deployment ended successfully"
-    }
-    failure {
-      echo "An error occur during the deployment"
-    }
-  }
 }
