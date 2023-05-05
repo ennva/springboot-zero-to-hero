@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  java-maven-app:
+    image: djass/spring-boot-zero-hero:0.0.2
+    ports:
+      - 8080:8080
+  postgres:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=changeme
