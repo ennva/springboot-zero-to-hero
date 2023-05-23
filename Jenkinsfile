@@ -25,8 +25,12 @@ pipeline {
             }
             steps {
                 script {
-                    echo "deploying docker image"
-                    sh("kubectl create deployment nginx-deployment --image=nginx")
+                    echo "checking my aws users..."
+                    sh("aws iam list-users --no-cli-pager")
+                    echo "list available clusters..."
+                    sh("aws eks list-clusters --no-cli-pager")
+                    //echo "deploying docker image"
+                    //sh("kubectl create deployment nginx-deployment --image=nginx")
                 }
             }
         }
